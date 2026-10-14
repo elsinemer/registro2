@@ -256,6 +256,29 @@ document.addEventListener("keydown", (event) => {
   ) {
     event.preventDefault();
   }
+
+  // Tecla - del teclado común o numérico.
+document.addEventListener("keydown", (event) => {
+  if (accessPanel.hidden) {
+    return;
+  }
+
+  if (event.key === "-" || event.code === "NumpadSubtract") {
+    event.preventDefault();
+    registerEntry();
+    return;
+  }
+
+  if (
+    document.activeElement === identificationInput &&
+    !event.ctrlKey &&
+    !event.metaKey &&
+    !event.altKey &&
+    event.key.length === 1 &&
+    !/[0-9]/.test(event.key)
+  ) {
+    event.preventDefault();
+  }
 });
 
 
