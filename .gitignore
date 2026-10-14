@@ -1,0 +1,21 @@
+# Entorno virtual (cada uno se lo crea en su maquina, no se sube)
+venv/
+.venv/
+
+# Cache de Python
+__pycache__/
+*.py[cod]
+
+# Base de datos local de Django
+db.sqlite3
+
+# Editores / sistema operativo
+.vscode/
+.idea/
+.DS_Store
+
+# Temporales de Office al abrir los .docx
+~$*
+
+# Registros de ingresos (datos de cada maquina, como la base)
+registros.json
