@@ -208,7 +208,7 @@ h1 {
 
 .action-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 10px;
 }
 
@@ -227,6 +227,7 @@ h1 {
 }
 
 .action-card.entry { border-color: #b9dfd2; background: #effaf6; }
+.action-card.exit { border-color: #c5d7f0; background: #f1f6fd; }
 
 .key-symbol {
   width: 42px;
@@ -244,9 +245,14 @@ h1 {
 }
 
 .entry .key-symbol { color: var(--success); }
+.exit .key-symbol { color: var(--blue-600); }
 .action-copy strong, .action-copy small { display: block; }
 .action-copy strong { color: #27364a; font-size: .76rem; }
 .action-copy small { margin-top: 3px; color: var(--muted); font-size: .65rem; }
+
+@media (max-width: 520px) {
+  .action-grid { grid-template-columns: 1fr; }
+}
 
 .success-panel { padding: 6px 0 1px; text-align: center; }
 

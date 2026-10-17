@@ -1,24 +1,90 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Pantalla de excepciones</title>
-<style>
-*{box-sizing:border-box}body{margin:0;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#f0f4f8;color:#304457;font:15px Arial,sans-serif;padding:24px 16px}h1{font-size:16px;background:#e0e8f0;border-radius:20px;padding:9px 18px;margin:0 0 16px}.card{background:white;width:100%;max-width:390px;border-radius:14px;padding:24px;box-shadow:0 8px 24px #23384d1a}.notice{background:#e3f2fc;border-left:3px solid #328bca;padding:12px;border-radius:5px;font-size:13px;line-height:1.5}.notice strong{display:block;color:#17667b}.details{font-size:13px;line-height:1.6;margin:14px 0}label{display:block;font-size:13px;margin:18px 0 7px}select,textarea{width:100%;border:1px solid #cbd2d8;border-radius:4px;padding:7px;font:13px Arial,sans-serif;color:#263744}select{height:110px}textarea{min-height:80px;resize:vertical}button,a.back{width:100%;display:block;border:0;border-radius:5px;padding:12px;font-size:14px;font-weight:bold;text-align:center;text-decoration:none;cursor:pointer}button{background:#25a745;color:white;margin:20px 0 8px}button:disabled{opacity:.6}a.back{background:#6c757d;color:white}button:focus-visible,a:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #238bca;outline-offset:3px}#status{font-size:13px;line-height:1.5}footer{font-size:10px;color:#71808d;text-align:center;max-width:420px;margin-top:24px}
-</style></head>
-<body><h1>2. Pantalla de Excepciones</h1><main class="card">
-<div class="notice"><strong>Justificación de Marcaje</strong>Seleccione el motivo de la excepción.</div>
-<div class="details"><strong>{{ ingreso.nombre }}</strong><br>Entrada prevista: {{ ingreso.esperado }} · Llegada: {{ ingreso.llegada }}<br>{{ ingreso.tipo }} · Desvío: {{ ingreso.desvio }} minutos</div>
-<form id="exceptionForm">
-<label for="motivo">Motivo de la Excepción:</label>
-<select id="motivo" name="motivo" size="5" required><option>Reunión de profesores</option><option>Llegada tarde</option><option>Llegada anticipada</option><option>Cambio de horario</option><option>Cambio de día y horario de coordinación</option><option>Otros</option></select>
-<label for="observaciones">Observaciones / Detalle adicional:</label><textarea id="observaciones" name="observaciones" maxlength="1000" placeholder="Detalle adicional opcional"></textarea>
-<button id="confirmar" type="submit">Confirmar y Guardar Registro</button><a class="back" href="/">Cancelar / Volver</a>
-<p id="status" role="status" aria-live="polite"></p></form></main>
-<footer>Desarrollado por: Espínola Anabela - Jaime Ana - Gutierrez Agustina - Nemer Elsi</footer>
-<script>
-const form=document.getElementById('exceptionForm');
-form.addEventListener('submit',async(event)=>{
- event.preventDefault();const button=document.getElementById('confirmar');const status=document.getElementById('status');button.disabled=true;status.textContent='Guardando…';
- try{const response=await fetch('/registrar/',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({motivo:document.getElementById('motivo').value,observaciones:document.getElementById('observaciones').value})});const data=await response.json();if(!response.ok||!data.ok)throw new Error(data.mensaje||'No se pudo guardar.');status.textContent='Ingreso y motivo guardados correctamente.';setTimeout(()=>window.location.assign('/'),2000);}catch(error){status.textContent=error.message||'No se pudo conectar con el servidor. Intente nuevamente.';button.disabled=false;}
-});
-</script></body></html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Justificación de marca</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px 16px; background: #f0f4f8; color: #304457; font: 15px Arial, sans-serif; }
+    h1 { margin: 0 0 16px; padding: 9px 18px; border-radius: 20px; background: #e0e8f0; font-size: 16px; }
+    .card { width: 100%; max-width: 440px; padding: 24px; border-radius: 14px; background: #fff; box-shadow: 0 8px 24px #23384d1a; }
+    .notice { padding: 12px; border-left: 3px solid #328bca; border-radius: 5px; background: #e3f2fc; font-size: 13px; line-height: 1.5; }
+    .notice strong { display: block; color: #17667b; }
+    .details { margin: 14px 0; font-size: 13px; line-height: 1.7; }
+    label { display: block; margin: 18px 0 7px; font-size: 13px; }
+    select, textarea { width: 100%; border: 1px solid #cbd2d8; border-radius: 4px; padding: 9px; color: #263744; font: 13px Arial, sans-serif; }
+    textarea { min-height: 80px; resize: vertical; }
+    button, a.back { display: block; width: 100%; margin-top: 12px; padding: 12px; border: 0; border-radius: 5px; font-size: 14px; font-weight: bold; text-align: center; text-decoration: none; cursor: pointer; }
+    button { margin-top: 20px; background: #20834a; color: #fff; }
+    button:disabled { opacity: .6; }
+    a.back { background: #6c757d; color: #fff; }
+    button:focus-visible, a:focus-visible, select:focus-visible, textarea:focus-visible { outline: 3px solid #238bca; outline-offset: 3px; }
+    #status { min-height: 20px; font-size: 13px; line-height: 1.5; }
+    footer { max-width: 420px; margin-top: 24px; color: #71808d; font-size: 10px; text-align: center; }
+  </style>
+</head>
+<body>
+  <h1>Justificación de marca</h1>
+  <main class="card">
+    <div class="notice"><strong>Se requiere indicar un motivo</strong>La marca se encuentra a cinco minutos o más del horario previsto.</div>
+    <div class="details">
+      <strong>{{ fichaje.nombre }}</strong><br>
+      Movimiento: {{ fichaje.movimiento }}<br>
+      {% if fichaje.tipo == "ingreso" %}Entrada{% else %}Salida{% endif %} prevista: {{ fichaje.esperado }} · Marca: {{ fichaje.marca }}<br>
+      Desvío: {{ fichaje.desvio }} minutos
+    </div>
+    <form id="exceptionForm">
+      <label for="motivo">Motivo:</label>
+      <select id="motivo" name="motivo" required>
+        <option value="" selected disabled>Seleccione un motivo</option>
+        {% if fichaje.tipo == "salida" %}
+          <option>Salida anticipada</option>
+          <option>Salida posterior</option>
+        {% else %}
+          <option>Llegada tarde</option>
+          <option>Llegada anticipada</option>
+        {% endif %}
+        <option>Reunión de profesores</option>
+        <option>Cambio de horario</option>
+        <option>Cambio de día y horario de coordinación</option>
+        <option>Otros</option>
+      </select>
+      <label for="observaciones">Observaciones o detalle adicional:</label>
+      <textarea id="observaciones" name="observaciones" maxlength="1000" placeholder="Detalle adicional opcional"></textarea>
+      <button id="confirmar" type="submit">Confirmar y guardar marca</button>
+      <a class="back" href="/">Cancelar y volver</a>
+      <p id="status" role="status" aria-live="polite"></p>
+    </form>
+  </main>
+  <footer>Desarrollado por: Espínola Anabela - Jaime Ana - Gutierrez Agustina - Nemer Elsi</footer>
+  <script>
+    const form = document.getElementById("exceptionForm");
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const button = document.getElementById("confirmar");
+      const status = document.getElementById("status");
+      button.disabled = true;
+      status.textContent = "Guardando…";
+      try {
+        const response = await fetch("/registrar/", {
+          method: "POST",
+          credentials: "same-origin",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            motivo: document.getElementById("motivo").value,
+            observaciones: document.getElementById("observaciones").value,
+          }),
+        });
+        const data = await response.json();
+        if (!response.ok || !data.ok) throw new Error(data.mensaje || "No se pudo guardar.");
+        status.textContent = "Marca y motivo guardados. Volviendo a la pantalla principal…";
+        setTimeout(() => window.location.assign("/"), 1500);
+      } catch (error) {
+        status.textContent = error.message || "No se pudo conectar con el servidor. Intente nuevamente.";
+        button.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

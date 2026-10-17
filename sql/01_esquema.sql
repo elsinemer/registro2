@@ -46,5 +46,7 @@ CREATE TABLE registro (
     id_horario      INTEGER NOT NULL REFERENCES horario (id),
     desvio          INTEGER NOT NULL,
     motivo          INTEGER NOT NULL,
-    marca           VARCHAR(255)
+    marca           VARCHAR(255),
+    justificacion   VARCHAR(255) NOT NULL DEFAULT '',
+    observaciones   TEXT NOT NULL DEFAULT ''
 );

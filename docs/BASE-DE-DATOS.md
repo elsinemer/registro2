@@ -32,7 +32,7 @@ las usa Django.
 |---|---|---|
 | `funcionario` | una persona que ficha | `cedula` (unica), `activo` (si esta dado de baja, el reloj lo rechaza) |
 | `horario` | lo que una persona tiene que cumplir **un dia** | `fecha`, `entrada`, `salida` |
-| `registro` | una marca en el reloj | `desvio` en minutos (positivo = tarde), `motivo` (1 = ingreso, 2 = salida), `marca` (fecha y hora de la marca) |
+| `registro` | una marca en el reloj | `desvio` en minutos (positivo = posterior al horario, negativo = anterior), `motivo` (1 = ingreso, 2 = salida), `marca` (fecha y hora), `justificacion` y `observaciones` cuando corresponde |
 | `usuario` | una cuenta para entrar a administrar | `hash_password`, `rol`. **Todavia no se usa en la app.** |
 
 **Las relaciones.** Un funcionario tiene muchos horarios (uno por dia) y
@@ -60,7 +60,6 @@ ademas corregir cosas que no habrian funcionado en ningun motor:
 Dos interpretaciones nuestras, porque el diagrama no las aclaraba:
 
 - **`motivo`**: lo usamos como tipo de marca, `1` = ingreso y `2` = salida.
-  Hoy el reloj solo registra ingresos.
 - **`marca`**: guarda la fecha y hora en que se marco, como texto
   (`2026-10-09T08:10:00`). Es el unico lugar del diagrama donde entra la hora
   real de la marca.
@@ -128,17 +127,21 @@ Dos funciones auxiliares hacen el trabajo, y las usan las dos rutas:
 
 Despues:
 
-- **`/fichar/`** usa las dos y devuelve el resultado para mostrar en pantalla.
-  No guarda nada.
+- **`/fichar/`** usa las dos y compara contra `horario.entrada` o
+  `horario.salida`, según la acción seleccionada. No guarda todavía la marca.
 - **`/registrar/`** las usa de nuevo y guarda la marca:
 
   ```python
-  Registro.objects.create(funcionario=..., horario=..., desvio=..., motivo=Registro.INGRESO, marca=...)
+  Registro.objects.create(funcionario=..., horario=..., desvio=..., motivo=..., marca=..., justificacion=..., observaciones=...)
   ```
 
   `.create()` hace el `INSERT` y devuelve el registro con su `id` ya asignado.
   El desvio se recalcula en el servidor en vez de aceptar el que mande el
   navegador, para que nadie pueda guardar un numero inventado.
+
+Si la base ya existía antes de agregar motivo y observaciones, ejecuta una
+sola vez `sql/03_actualizar_registro_motivo.sql` en la misma base MySQL que usa
+Django. Para una base nueva, el esquema actualizado ya crea esas columnas.
 
 ### La conexion (`reloj/reloj/settings.py`)
 
