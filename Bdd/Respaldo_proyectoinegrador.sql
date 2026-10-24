@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `proyectointegrador` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `proyectointegrador`;
 -- MySQL dump 10.13  Distrib 8.0.46, for Win64 (x86_64)
 --
 -- Host: localhost    Database: proyectointegrador
@@ -294,7 +292,7 @@ CREATE TABLE `django_session` (
 
 LOCK TABLES `django_session` WRITE;
 /*!40000 ALTER TABLE `django_session` DISABLE KEYS */;
-INSERT INTO `django_session` VALUES ('0mk8ciwl9xg1z6z57cy35eg2p2f1hnpa','e30:1xGG53:MycbcwdMZdY2Z-Pl9ULwe6uqWz5ywpe6wYp_o2GN4Ok','2026-10-26 13:28:41.284104'),('66twrqh31yuz26c2wsqckwe4lyckusgt','e30:1xI4tV:in27yfWnlT8LHaGrQHRTEaXphJHJnoyA6qsADMSWWGg','2026-10-31 13:56:17.925683'),('dwaea7t5hqnvgkab292htp9dgpbtujnl','e30:1xI32X:vvaCanPnYrUhGzJYvjA3FlL-a6dYo-avxDShD_iyU_s','2026-10-31 11:57:29.916370'),('r79nw2nks7ixqf4gflhnqog1wloon6uv','e30:1xGG9J:XruTp9Ljpmh8nq6e4dBBvpwAYccxUUoGyYLACzT0jAE','2026-10-26 13:33:05.111682');
+INSERT INTO `django_session` VALUES ('0mk8ciwl9xg1z6z57cy35eg2p2f1hnpa','e30:1xGG53:MycbcwdMZdY2Z-Pl9ULwe6uqWz5ywpe6wYp_o2GN4Ok','2026-10-26 13:28:41.284104'),('66twrqh31yuz26c2wsqckwe4lyckusgt','e30:1xI4tV:in27yfWnlT8LHaGrQHRTEaXphJHJnoyA6qsADMSWWGg','2026-10-31 13:56:17.925683'),('dwaea7t5hqnvgkab292htp9dgpbtujnl','e30:1xI32X:vvaCanPnYrUhGzJYvjA3FlL-a6dYo-avxDShD_iyU_s','2026-10-31 11:57:29.916370'),('n5spullgvdo1j7rzoawzbiod06hpd27n','.eJwtjr0OgjAURl_FfHNJLuXP3N3Bxcnd1PYiNdCSgiyEdzc1ricnJ2dH7-1g3vKYJTgvYRXwDivuMxow6qap2kZ3UOjFDhlp0m1RUqHre3lmIiYqqGIiKIQ4PZOAcZNJ0ukyLh4KssySjItglBVXWZxMsjn2K0DBybL5CNYdKax-zq4PryRLzHbc_JTnMr7-8XF8AVKTN9o:1xKiqy:YCBcvN7LbYmvOUgu4r3E0Fkzw5hMMrxMCH_6H5TY4o0','2026-11-07 21:00:36.065386'),('r79nw2nks7ixqf4gflhnqog1wloon6uv','e30:1xGG9J:XruTp9Ljpmh8nq6e4dBBvpwAYccxUUoGyYLACzT0jAE','2026-10-26 13:33:05.111682');
 /*!40000 ALTER TABLE `django_session` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -321,7 +319,7 @@ CREATE TABLE `funcionario` (
 
 LOCK TABLES `funcionario` WRITE;
 /*!40000 ALTER TABLE `funcionario` DISABLE KEYS */;
-INSERT INTO `funcionario` VALUES (1,90000002,'Bruno Prueba',1),(2,90000003,'Carla Prueba',1),(3,90000004,'Diego Prueba',1),(4,90000005,'Elena Prueba',1),(5,90000006,'Fabian Prueba',1),(6,90000001,'Ana Prueba',1),(7,45536527,'Nemer Elsi',1),(8,90000007,'Espínola Anabela',1),(9,90000008,'Jaime Ana',1),(10,90000009,'Gutiérrez Agustina',1);
+INSERT INTO `funcionario` VALUES (1,90000002,'Bruno Prueba',1),(2,90000003,'Carla Prueba',1),(3,90000004,'Diego Prueba',1),(4,90000005,'Elena Prueba',1),(5,90000006,'Fabian Prueba',1),(6,90000001,'Ana Prueba',1),(7,45536527,'Nemer Elsi',1),(8,39966514,'Espínola Anabela',1),(9,34779429,'Jaime Ana',1),(10,55618808,'Gutiérrez Agustina',1);
 /*!40000 ALTER TABLE `funcionario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -376,7 +374,7 @@ CREATE TABLE `registro` (
   KEY `fk_registro_horario_funcionario` (`id_horario`,`id_funcionario`),
   CONSTRAINT `fk_registro_funcionario` FOREIGN KEY (`id_funcionario`) REFERENCES `funcionario` (`id`),
   CONSTRAINT `fk_registro_horario_funcionario` FOREIGN KEY (`id_horario`, `id_funcionario`) REFERENCES `horario` (`id`, `id_funcionario`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -385,7 +383,7 @@ CREATE TABLE `registro` (
 
 LOCK TABLES `registro` WRITE;
 /*!40000 ALTER TABLE `registro` DISABLE KEYS */;
-INSERT INTO `registro` VALUES (12,7,115,56,1,'2026-10-17T08:56:00-03:00','Llegada tarde','Upps I did It again'),(13,7,115,-183,2,'2026-10-17T08:57:00-03:00','Otros',''),(14,7,115,172,1,'2026-10-17T10:52:00-03:00','Reunión de profesores',',dksjhbsniu'),(15,7,115,-68,2,'2026-10-17T10:52:00-03:00','Cambio de horario',''),(16,8,112,146,1,'2026-10-17T10:56:00-03:00','Cambio de día y horario de coordinación','');
+INSERT INTO `registro` VALUES (12,7,115,56,1,'2026-10-17T08:56:00-03:00','Llegada tarde','Upps I did It again'),(13,7,115,-183,2,'2026-10-17T08:57:00-03:00','Otros',''),(14,7,115,172,1,'2026-10-17T10:52:00-03:00','Reunión de profesores',',dksjhbsniu'),(15,7,115,-68,2,'2026-10-17T10:52:00-03:00','Cambio de horario',''),(16,8,112,146,1,'2026-10-17T10:56:00-03:00','Cambio de día y horario de coordinación',''),(17,7,139,247,1,'2026-10-24T17:37:00-03:00','Llegada anticipada','');
 /*!40000 ALTER TABLE `registro` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -426,4 +424,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-10-24  8:49:04
+-- Dump completed on 2026-10-24 20:48:39

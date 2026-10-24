@@ -59,7 +59,7 @@ TEMPLATES = [
 WSGI_APPLICATION = "reloj.wsgi.application"
 
 
-# Conexión a MySQL.
+# Conexión a MySQL. cambiar PORT y PASSWORD según la configuración de tu servidor MySQL.
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
